@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0c0d0c;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+::selection{background:oklch(0.82 0.17 145);color:#0c0d0c}
+@keyframes blink{50%{opacity:0}}
+</style>
+</helmet>
+<div data-screen-label="Home" style="background:#0c0d0c;color:#e6e8e3;font-family:'IBM Plex Sans',sans-serif;min-height:100vh;position:relative">
+<sc-if value="{{ scanlines }}" hint-placeholder-val="{{ false }}"><div style="position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)"></div></sc-if>
+<header style="position:sticky;top:0;z-index:40;background:rgba(12,13,12,.88);backdrop-filter:blur(8px);display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center;padding:18px clamp(20px,4vw,48px);border-bottom:1px solid #222522;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a">
+<div style="display:flex;gap:10px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:oklch(0.82 0.17 145)"></span>sagan@san-francisco:~ <span style="color:#e6e8e3">{{ clock }} PT</span></div>
+<nav style="display:flex;flex-wrap:wrap;gap:8px 24px"><a href="#work" style-hover="color:#e6e8e3">./work</a><a href="#playground" style-hover="color:#e6e8e3">./playground</a><a href="#about" style-hover="color:#e6e8e3">./about</a><a href="resume.pdf" target="_blank" style-hover="color:#e6e8e3">resume.pdf</a><a href="#contact" style-hover="color:#e6e8e3">./contact</a></nav>
+</header>
+
+<section style="padding:clamp(64px,12vw,140px) clamp(20px,4vw,48px) clamp(64px,8vw,96px);display:flex;flex-direction:column;gap:32px;max-width:1280px">
+<div style="display:flex;flex-direction:column;gap:6px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a;min-height:88px">
+<sc-for list="{{ bootLines }}" as="b" hint-placeholder-count="4"><div style="display:flex;gap:12px"><span style="color:oklch(0.82 0.17 145)">{{ b.mark }}</span><span>{{ b.text }}</span></div></sc-for>
+</div>
+<h1 onMouseEnter="{{ replay }}" style="margin:0;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(40px,8.6vw,112px);line-height:.95;letter-spacing:-0.04em;cursor:default;overflow-wrap:anywhere">{{ scrambled }}</h1>
+<div style="display:flex;flex-wrap:wrap;gap:40px 64px">
+<p style="margin:0;flex:1 1 380px;max-width:600px;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:#c9ccc6;text-wrap:pretty">CS student at CSU East Bay and AI research assistant. I build reliable LLM systems and vibe code for fun, as a creative outlet to explore ideas and build things that feel uniquely mine.</p>
+<div style="flex:1 1 300px;max-width:440px;display:flex;flex-direction:column;gap:10px;font-family:'JetBrains Mono',monospace;font-size:14px;color:#8b918a">
+<div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed #2b2f2b;padding-bottom:10px"><span>status</span><span style="color:oklch(0.82 0.17 145)">● building reliflow</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed #2b2f2b;padding-bottom:10px"><span>focus</span><span style="color:#e6e8e3;text-align:right">agents · evals · local LLMs</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span>based</span><span style="color:#e6e8e3">Bay Area, CA</span></div>
+</div>
+</div>
+</section>
+
+<section id="work" style="padding:0 clamp(20px,4vw,48px) clamp(64px,8vw,96px);scroll-margin-top:60px">
+<div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a;padding-bottom:14px;border-bottom:1px solid #2b2f2b"><span>// selected work</span><span>press 1–3 to open</span></div>
+<sc-for list="{{ trace }}" as="item" hint-placeholder-count="3">
+<div style="border-bottom:1px solid #222522">
+<div onClick="{{ item.toggle }}" style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;padding:26px 8px;margin:0 -8px;cursor:pointer" style-hover="background:#121412">
+<span style="width:48px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a">{{ item.step }}</span>
+<span style="flex:0 0 240px;font-family:'JetBrains Mono',monospace;font-size:clamp(22px,2.4vw,28px);font-weight:700;letter-spacing:-0.02em">{{ item.name }}</span>
+<span style="flex:1 1 220px;font-size:18px;color:#c9ccc6">{{ item.kind }}</span>
+<span style="display:flex;gap:24px;align-items:baseline;margin-left:auto"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:oklch(0.82 0.17 145)">{{ item.status }}</span><span style="width:24px;font-family:'JetBrains Mono',monospace;font-size:22px;color:#8b918a;text-align:right">{{ item.sign }}</span></span>
+</div>
+<sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-wrap:wrap;gap:24px 40px;padding:0 0 36px 72px">
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:14px"><p style="margin:0;font-size:18px;line-height:1.55;color:#e6e8e3;text-wrap:pretty">{{ item.blurb }}</p><p style="margin:0;font-size:16px;line-height:1.55;color:#8b918a;text-wrap:pretty">{{ item.detail }}</p></div>
+<div style="flex:1 1 300px;display:flex;flex-direction:column;gap:14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a">
+<div style="aspect-ratio:16/9;border:1px solid #2b2f2b;background:repeating-linear-gradient(135deg,#111311 0 8px,#151815 8px 16px);display:flex;align-items:flex-end;padding:10px;font-size:12px">{{ item.shot }}</div>
+<span>{"stack": "{{ item.stack }}"}</span>
+<a href="https://github.com/Saganwazed" target="_blank" style="color:oklch(0.82 0.17 145)" style-hover="text-decoration:underline">→ view source on github</a>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</section>
+
+<section id="playground" style="padding:0 clamp(20px,4vw,48px) clamp(64px,8vw,96px);scroll-margin-top:60px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a;padding-bottom:14px;border-bottom:1px solid #2b2f2b">// playground</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:#222522;border-bottom:1px solid #222522">
+<sc-for list="{{ play }}" as="p" hint-placeholder-count="3">
+<div style="background:#0c0d0c;padding:28px 24px 32px;display:flex;flex-direction:column;gap:12px;transition:background .2s" style-hover="background:#121412">
+<span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:oklch(0.82 0.17 145)">{{ p.tag }}</span>
+<span style="font-size:22px;font-weight:500">{{ p.t }}</span>
+<span style="font-size:16px;line-height:1.5;color:#8b918a">{{ p.d }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="about" style="padding:0 clamp(20px,4vw,48px) clamp(64px,8vw,96px);display:flex;flex-wrap:wrap;gap:48px;scroll-margin-top:60px">
+<img src="public/images/about.jpg" alt="Sagan Chowdhury" style="flex:0 1 320px;min-width:240px;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.1);border:1px solid #2b2f2b" style-hover="filter:none">
+<div style="flex:1 1 380px;display:flex;flex-direction:column;gap:18px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a">// about</div>
+<p style="margin:0;font-size:20px;line-height:1.55;color:#e6e8e3;text-wrap:pretty">I'm a Computer Science student at CSU East Bay, deeply curious about how things work, especially in tech. I spend a lot of time learning, experimenting, playing with Raspberry Pis and pushing myself to grow.</p>
+<p style="margin:0;font-size:18px;line-height:1.55;color:#8b918a;text-wrap:pretty">My main passion is artificial intelligence. I've fine-tuned a few large language models and enjoy running them locally on my own devices.</p>
+</div>
+<div style="flex:1 1 300px;max-width:400px;display:flex;flex-direction:column;font-family:'JetBrains Mono',monospace;font-size:13px">
+<div style="color:#8b918a;padding-bottom:14px">// experience</div>
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:4px;padding:14px 0;border-top:1px solid #222522"><span style="color:#e6e8e3;font-size:14px">{{ e.role }}</span><span style="color:#8b918a">{{ e.org }} · {{ e.when }}</span></div>
+</sc-for>
+<a href="resume.pdf" download style="margin-top:14px;padding:14px 16px;border:1px solid oklch(0.82 0.17 145);color:oklch(0.82 0.17 145);display:flex;justify-content:space-between" style-hover="background:oklch(0.82 0.17 145);color:#0c0d0c"><span>resume.pdf</span><span>↓</span></a>
+</div>
+</section>
+
+<footer id="contact" style="padding:clamp(56px,7vw,80px) clamp(20px,4vw,48px) 48px;border-top:1px solid #222522;display:flex;flex-direction:column;gap:36px;scroll-margin-top:60px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a">// open to collaborations, chit chats, and opportunities</div>
+<button onClick="{{ copyEmail }}" style="all:unset;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:clamp(28px,5.4vw,64px);font-weight:700;letter-spacing:-0.03em;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;overflow-wrap:anywhere" style-hover="color:oklch(0.82 0.17 145)">saganwc@gmail.com<span style="font-size:14px;font-weight:400;color:#8b918a">{{ copyLabel }}</span></button>
+<div onClick="{{ focusShell }}" style="border:1px solid #2b2f2b;background:#090a09;padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;cursor:text;max-width:880px">
+<div style="color:#8b918a;padding-bottom:8px">interactive shell · type <span style="color:#e6e8e3">help</span></div>
+<sc-for list="{{ shellLines }}" as="s" hint-placeholder-count="0"><div style="white-space:pre-wrap;color:#c9ccc6"><span style="color:oklch(0.82 0.17 145)">{{ s.prompt }}</span>{{ s.text }}</div></sc-for>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:oklch(0.82 0.17 145)">$</span><input ref="{{ shellRef }}" value="{{ shellInput }}" onChange="{{ onShellChange }}" onKeyDown="{{ onShellKey }}" spellcheck="false" aria-label="shell input" style="flex:1;min-width:0;background:transparent;border:0;outline:0;color:#e6e8e3;font:inherit;caret-color:oklch(0.82 0.17 145)"></div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b918a">
+<div style="display:flex;flex-wrap:wrap;gap:12px 28px"><sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><a href="{{ l.href }}" target="_blank" style-hover="color:#e6e8e3">{{ l.label }} ↗</a></sc-for></div>
+<span>© 2026 sagan chowdhury · exit 0</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;scanlines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Effects&quot;},&quot;scramble&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Effects&quot;},&quot;bootSequence&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Effects&quot;},&quot;expandAll&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Work list&quot;}}">
+const PROJECTS = [
+  { key: 'reliflow', name: 'Reliflow', kind: 'Agent orchestration framework', status: 'in progress', stack: 'Python · Pydantic v2 · LiteLLM · SQLite · Typer',
+    blurb: 'A pip-installable framework for multi-step LLM agent workflows, with mandatory reflexion, LLM-verified plans and hard cost guards.',
+    detail: 'Event-sourced state over SQLite with time-travel replay and a JSONL trace emitter. Install to completed run in under 15 minutes.', shot: 'reliflow — trace CLI screenshot' },
+  { key: 'candor', name: 'Candor', kind: 'AI news bias detection', status: 'deployed', stack: 'TypeScript · Next.js · Anthropic API · Supabase · Zod',
+    blurb: 'Real-time rhetorical and bias analysis of any news article URL, end to end in under 10 seconds.',
+    detail: 'Serverless extraction with Readability + JSDOM on Vercel edge. Schema-validated output via structured prompting, Zod and retry on parse failure.', shot: 'candor — article analysis view' },
+  { key: 'alaka', name: 'Alaka', kind: 'Local LLM desktop client', status: 'daily driver', stack: 'TypeScript · React · Electron · Ollama',
+    blurb: 'A cross-platform desktop app that runs LLMs fully offline via Ollama, with streaming chat and image attachments.',
+    detail: 'Standalone macOS and Windows binaries with auto-detection of the Ollama runtime. Still in regular use.', shot: 'alaka — chat window' },
+];
+const PLAY = [
+  { tag: 'models', t: 'Fine-tuned LLMs', d: 'Small models fine-tuned and run locally on my own devices.' },
+  { tag: 'hardware', t: 'Raspberry Pi', d: 'Home experiments with Pis and self-hosted tools.' },
+  { tag: 'writing', t: 'Blog & weeklies', d: 'How I built this site, plus weekly notes on what I’m learning.' },
+];
+const EXP = [
+  { role: 'AI Research Assistant', org: 'CSU East Bay', when: 'Mar 2026 – Now' },
+  { role: 'Software & Systems Intern', org: "Women's Cancer Resource Center", when: 'May – Aug 2026' },
+  { role: 'Teaching Assistant, Python', org: 'City College of SF', when: 'Jan – May 2024' },
+  { role: 'B.S. Computer Science · GPA 4.0', org: 'CSU East Bay', when: '2025 – 2027' },
+];
+const LINKS = [
+  { label: 'github', href: 'https://github.com/Saganwazed' },
+  { label: 'linkedin', href: 'https://www.linkedin.com/in/saganwc' },
+  { label: 'x', href: 'https://x.com/saganwc' },
+  { label: 'instagram', href: 'https://instagram.com/saganchowdhury' },
+];
+const BOOT = [
+  'resolving plan … 3 projects, 3 experiments',
+  'cost guard: $0.00 / visit',
+  'loading portrait … ok',
+  'ready.',
+];
+const NAME = 'SAGAN_CHOWDHURY';
+const GLYPHS = '01<>/{}[]#$%&*+=?';
+const EMAIL = 'saganwc@gmail.com';
+
+class Component extends DCLogic {
+  state = { reveal: 0, open: 0, boot: 0, copied: false, now: new Date(), shell: [], input: '' };
+  shellRef = React.createRef();
+  componentDidMount() {
+    this.clockT = setInterval(() => this.setState({ now: new Date() }), 1000);
+    const bootOn = this.props.bootSequence ?? true;
+    if (bootOn) this.bootT = setInterval(() => this.setState(s => {
+      if (s.boot >= BOOT.length) { clearInterval(this.bootT); return null; }
+      return { boot: s.boot + 1 };
+    }), 380);
+    else this.setState({ boot: BOOT.length });
+    this.replay();
+    this.onKey = (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= PROJECTS.length) this.setState(s => ({ open: s.open === n - 1 ? -1 : n - 1 }));
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() {
+    clearInterval(this.clockT); clearInterval(this.scrT); clearInterval(this.bootT); clearTimeout(this.cpT);
+    window.removeEventListener('keydown', this.onKey);
+  }
+  replay = () => {
+    if (!(this.props.scramble ?? true)) { this.setState({ reveal: NAME.length }); return; }
+    clearInterval(this.scrT);
+    this.setState({ reveal: 0 });
+    this.scrT = setInterval(() => this.setState(s => {
+      if (s.reveal >= NAME.length) { clearInterval(this.scrT); return null; }
+      return { reveal: s.reveal + 0.34 };
+    }), 40);
+  };
+  copyEmail = () => {
+    try { navigator.clipboard.writeText(EMAIL); } catch (e) {}
+    this.setState({ copied: true });
+    clearTimeout(this.cpT);
+    this.cpT = setTimeout(() => this.setState({ copied: false }), 1800);
+  };
+  go = (id) => { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 60, behavior: 'smooth' }); };
+  run = (raw) => {
+    const cmd = raw.trim().toLowerCase();
+    const out = [];
+    if (!cmd) return;
+    if (cmd === 'help') out.push('whoami · ls · open <project> · resume · email · socials · clear');
+    else if (cmd === 'whoami') out.push('sagan chowdhury — cs @ csu east bay, ai research assistant');
+    else if (cmd === 'ls' || cmd === 'ls projects') out.push(PROJECTS.map(p => p.key).join('   '));
+    else if (cmd.startsWith('open ')) {
+      const i = PROJECTS.findIndex(p => p.key === cmd.slice(5).trim());
+      if (i < 0) out.push('open: no such project. try ls');
+      else { out.push(`opening ${PROJECTS[i].key} …`); this.setState({ open: i }); setTimeout(() => this.go('work'), 50); }
+    }
+    else if (cmd === 'resume') { out.push('opening resume.pdf …'); window.open('resume.pdf', '_blank'); }
+    else if (cmd === 'email') { this.copyEmail(); out.push(`${EMAIL} copied to clipboard`); }
+    else if (cmd === 'socials') out.push(LINKS.map(l => `${l.label}: ${l.href.replace('https://', '')}`).join('\n'));
+    else if (cmd === 'sudo hire sagan') out.push('permission granted. email me →  ' + EMAIL);
+    else if (cmd === 'clear') { this.setState({ shell: [], input: '' }); return; }
+    else out.push(`command not found: ${cmd}. type help`);
+    this.setState(s => ({ input: '', shell: [...s.shell, { prompt: '$ ', text: raw }, ...out.map(t => ({ prompt: '', text: t }))].slice(-14) }));
+  };
+  renderVals() {
+    const { reveal, open, boot, copied, now, shell, input } = this.state;
+    const expandAll = this.props.expandAll ?? false;
+    const scrambled = NAME.split('').map((c, i) => i < reveal ? c : (c === '_' ? '_' : GLYPHS[Math.floor(Math.random() * GLYPHS.length)])).join('');
+    const clock = now.toLocaleTimeString('en-US', { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    const num = i => String(i + 1).padStart(2, '0');
+    return {
+      scanlines: this.props.scanlines ?? false,
+      scrambled, replay: this.replay, clock,
+      bootLines: BOOT.slice(0, boot).map((t, i) => ({ mark: i === BOOT.length - 1 ? '✓' : '›', text: t })),
+      trace: PROJECTS.map((p, i) => {
+        const isOpen = expandAll || open === i;
+        return { ...p, step: `[${num(i)}]`, open: isOpen, sign: isOpen ? '−' : '+', toggle: () => this.setState({ open: open === i ? -1 : i }) };
+      }),
+      play: PLAY, exp: EXP, links: LINKS,
+      copyEmail: this.copyEmail, copyLabel: copied ? 'copied ✓' : 'click to copy',
+      shellLines: shell, shellInput: input, shellRef: this.shellRef,
+      focusShell: () => this.shellRef.current && this.shellRef.current.focus({ preventScroll: true }),
+      onShellChange: (e) => this.setState({ input: e.target.value }),
+      onShellKey: (e) => { if (e.key === 'Enter') this.run(e.target.value); },
+    };
+  }
+}
+</script>
+</body>
+</html>
